@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frontend desafio</title>
+  <link rel="stylesheet" href="index.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@500&display=swap" rel="stylesheet">
+</head>
+
+  
+  <body>
+
+    
+    <header class="container-imagem">
+      <img src="imagens/bg-header-desktop.svg" alt="" class="show img-header">
+      <img src="imagens/bg-header-mobile.svg" alt="" class="show-mobile img-mobile">
+    </header>
+
+    <div id="filter" >
+
+      <div id="filter-btns">
+      <button class="filter-btn">Frontend</button>
+      <button class="filter-btn">Senior</button>
+      <button class="filter-btn">HTML</button>
+      <button class="filter-btn">CSS</button>
+      <button class="filter-btn">JavaScript</button>
+      <button class="filter-btn">Fullstack</button>
+      <button class="filter-btn">Midweight</button>
+      <button class="filter-btn">React</button>
+      <button class="filter-btn">Python</button>
+      <button class="filter-btn">Junior</button>
+      <button class="filter-btn">Sass</button>
+      <button class="filter-btn">Ruby</button>
+      <button class="filter-btn">Backend</button>
+      <button class="filter-btn">RoR</button>
+      <button class="filter-btn">Vue</button>
+      <button class="filter-btn">Django</button>
+    </div>
+
+      <button id="clear">
+        Clear
+      </button>
+
+    </div>
+    
+  
+
+    <div id="jobs-list"></div>
+    <script>
+
+     
+      
+
+    async function fetchData() {
+      
+      
+      
+      
+      try {
+        const response = await fetch('index.json'); 
+        
+     const data = await response.json();
+    
+     const jobsList = document.getElementById('jobs-list');
+     
+     data.forEach(job => {
+       const jobCard = document.createElement('div');
+       jobCard.classList.add('job-card'); 
+       
+      
+     jobCard.innerHTML = `
+     <img src="${job.logo}" alt="${job.company} Logo"> 
+     <div id="first-row">
+     <h2 class="company">${job.company}</h2>
+     <div id="new-feat">
+     <p class="${job.new == true ? 'new-on' : 'new-off'}">${job.new == true ? 'NEW!' : ''}</p>
+     <p class="${job.featured == true ? 'new-on':'new-off'}">${job.featured== true ? 'FEATURED' :''}  </p>
+      </div>
+      </div>
+     <p class="position">${job.position}</p>
+
+     
+     <p class="At">${job.postedAt} • ${job.contract} • ${job.location} </p>
+
+     <hr class="hr-all">
+
+     <div id="tags">
+     <button>${job.role} </button>
+
+     <button>${job.level}</button>
+    
+     
+     <button class="${job.tools[0] !== undefined ? 'tools-on' : 'tools-off'}">${job.tools [0]!== undefined ? job.tools[0] : ''} </button>
+      <button class="${job.tools[1] !== undefined ? 'tools-on' : 'tools-off'}">${job.tools [1]!== undefined ? job.tools[1] : ''}</button>
+     
+  
+    
+        <button class="${job.languages[0] !== undefined ? 'lang-on' : 'lang-off'}">${job.languages[0] !== undefined ? job.languages[0] : 'desaparecido(kaue)'}</button>
+
+        <button class="${job.languages[1] !== undefined ? 'lang-on' : 'lang-off'}">${job.languages[1] !== undefined ? job.languages[1] : 'desaparecido(kaue)'}</button>
+
+        <button class="${job.languages[2] !== undefined ? 'lang-on' : 'lang-off'}">${job.languages[2] !== undefined ? job.languages[2] : 'desaparecido(kaue)'}</button>
+     </div>
+     `;
+     jobsList.appendChild(jobCard);
+     });
+     } catch (error) {
+     console.error('Erro ao buscar dados:', error);
+     }
+    }
+    
+    window.onload = fetchData();
+    
+    
+    
+    </script>
+
+</body>
+</html>
